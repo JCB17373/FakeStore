@@ -27,7 +27,7 @@ class ProductListViewModel: NSObject, UICollectionViewDelegate,UICollectionViewD
            // self.deleteProduct(id: self.dataModel?.response?[indexPath.row].id ?? "")
         }
         cell.editImage.addTapGestureRecognizer {
-            self.dataModel?.response?[indexPath.row].isSelected = true
+            
             let storyboardRef = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboardRef.instantiateViewController(withIdentifier: "AddEditProductViewController") as! AddEditProductViewController
             vc.dataModel = self.dataModel

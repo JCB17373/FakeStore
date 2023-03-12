@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import SwiftyJSON
 class AddEditProductViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var addImageView: UIImageView!
@@ -89,6 +89,17 @@ class AddEditProductViewController: UIViewController,UIImagePickerControllerDele
         }
     }
     @IBAction func saveClicked(_ sender: UIButton) {
+        var dict = [String:String]()
+        dict["title"] = self.productName.text
+        dict["price"] = self.productPrice.text
+        dict["description"] = self.productDescription.text
+        
+        dict["image"] = ""
+        dict["id"] = ""
+        let res = JSON(dict)
+        let data = ProductListModelData(data: res)
+        self.dataModel?.response?.append(data)
+        self.navigationController?.popViewController(animated: true)
     }
     
     

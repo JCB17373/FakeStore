@@ -26,7 +26,7 @@ class ProductListModelData{
     var description : String?
     var category : String?
     var image : String?
-    var isSelected : Bool = false
+    
     init(data:JSON){
         id = data["id"].stringValue
         title = data["title"].stringValue

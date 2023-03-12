@@ -25,6 +25,9 @@ class ProductListViewController: UIViewController {
             self.makeRequest()
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        self.productListCollectionView.reloadData()
+    }
     func makeRequest(){
 //        NetworkManager.sharedInstance.showHideActivityIndicator(viewController: self, action: true)
         NetworkManager.sharedInstance.callingRequest(params: [:], apiname: apiName, view: self, requestType: self.requestMethods) { responseObject in
@@ -33,6 +36,7 @@ class ProductListViewController: UIViewController {
                 if self.apiName.contains("/"){
                     DispatchQueue.main.async {
                         let data = JSON(rawValue: response) ?? []
+                        self.apiName = "products"
                         self.viewModel.deleteProduct(id: data["id"].stringValue)
                     }
                 }else{
@@ -59,6 +63,7 @@ class ProductListViewController: UIViewController {
     @IBAction func addClicked(_ sender: UIBarButtonItem) {
         let storyboardRef = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboardRef.instantiateViewController(withIdentifier: "AddEditProductViewController") as! AddEditProductViewController
+        vc.dataModel = self.viewModel.dataModel
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
